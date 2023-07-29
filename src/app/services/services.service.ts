@@ -14,8 +14,8 @@ export class ServicesService {
     this.url =  helper.getUrl('services');
   }
 
-  getAllServices(): Observable<any>{
-    const url = this.url;
+  getAllServices(id_entity:any): Observable<any>{
+    const url = this.url+'/all/'+id_entity;
     return this.http.get(url);
   }
 

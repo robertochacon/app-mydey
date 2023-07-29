@@ -5,6 +5,7 @@ import { UsersComponent } from './components/users/users.component';
 import { EntitiesComponent } from './components/entities/entities.component';
 import { QuotesComponent } from './components/quotes/quotes.component';
 import { ServicesComponent } from './components/services/services.component';
+import { FormQuotesComponent } from './components/form-quotes/form-quotes.component';
 import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'entities', component: EntitiesComponent},
   {path: 'quotes/:id', component: QuotesComponent},
   {path: 'services', component: ServicesComponent},
+  {path: 'form-quotes/:id', component: FormQuotesComponent},
   {path: 'users', component: UsersComponent},
   {path: '**', redirectTo: '/'},
 ];

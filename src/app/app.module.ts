@@ -17,6 +17,7 @@ import { ServicesComponent } from './components/services/services.component';
 import { QuotesComponent } from './components/quotes/quotes.component';
 import { EntitiesComponent } from './components/entities/entities.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { FormQuotesComponent } from './components/form-quotes/form-quotes.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     ServicesComponent,
     QuotesComponent,
     EntitiesComponent,
+    FormQuotesComponent,
   ],
   imports: [
     BrowserModule,

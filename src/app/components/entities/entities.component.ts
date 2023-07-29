@@ -22,6 +22,7 @@ export class EntitiesComponent implements OnInit {
   name = '';
   phone = '';
   email = '';
+  host = '';
   image:any = [];
   listEntities: any[] = [];
 
@@ -29,6 +30,7 @@ export class EntitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_user = localStorage.getItem('user_id');
+    this.host = window.location.origin;
     this.getAllEntities();
   }
 

@@ -18,6 +18,11 @@ export class EntitiesService {
     return this.http.get(url);
   }
 
+  getEntity(id:any): Observable<any>{
+    const url = this.url+'/'+id;
+    return this.http.get(url);
+  }
+
   setEntities(json: any): Observable<any>{
     const url = this.url;
     return this.http.post(url, json);

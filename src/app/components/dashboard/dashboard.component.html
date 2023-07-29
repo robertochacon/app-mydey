@@ -1,32 +1,32 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'dashboard'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
         <div class="container p-5">
             <h3>Dashboard</h3>
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info d-none d-lg-block d-md-block" role="alert">
                 <h3 class="text-secondary">Hola, {{name}}</h3>
                 <h6>Aqui podras ver el total de todos los avances que tienes por el momento.</h6>
             </div>
 
             <b><h5>Totales en citas</h5></b>
             <div class="row">
-                <div class="col-4 text-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 text-center">
                     <div class="alert alert-secondary" style="border-left:5px solid green;" role="alert">
                         <h2 class="text-secondary">{{tqd}}</h2>
                         <h4 class="text-secondary">Hoy</h4>
                     </div>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 text-center">
                     <div class="alert alert-secondary" style="border-left:5px solid #4a4d89;" role="alert">
                         <h2 class="text-secondary">{{tqw}}</h2>
                         <h4 class="text-secondary">Esta semana</h4>
                     </div>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 text-center">
                     <div class="alert alert-secondary" style="border-left:5px solid yellow;" role="alert">
                         <h2 class="text-secondary">{{tqm}}</h2>
                         <h4 class="text-secondary">Este mes</h4>
@@ -36,24 +36,24 @@
 
             <b><h5>Otros totales</h5></b>
             <div class="row">
-                <div class="col-4 text-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 text-center">
                     <div class="alert alert-secondary" style="border-left:5px solid green;" role="alert">
                         <h2 class="text-secondary">{{tid}}</h2>
                         <h4 class="text-secondary">Entidades</h4>
                     </div>
                 </div>
-                <div class="col-4 text-center">
+                <!-- <div class="col-lg-4 col-md-6 col-sm-10 text-center">
                     <div class="alert alert-secondary" style="border-left:5px solid #4a4d89;" role="alert">
                         <h2 class="text-secondary">{{tiw}}</h2>
                         <h4 class="text-secondary">Servicios</h4>
                     </div>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-lg-4 col-md-6 col-sm-10 text-center">
                     <div class="alert alert-secondary" style="border-left:5px solid yellow;" role="alert">
                         <h2 class="text-secondary">{{tim}}</h2>
                         <h4 class="text-secondary">Usuarios</h4>
                     </div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -61,10 +61,10 @@
 
 </div>
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="./assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->

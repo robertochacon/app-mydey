@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ServicesService } from 'src/app/services/services.service';
+import { EntitiesService } from 'src/app/services/entities.service';
 import Swal from 'sweetalert2'
 declare const $: any;
 
@@ -17,21 +18,26 @@ export class ServicesComponent implements OnInit {
   loadData = false;
   result = '';
   details:any = null;
+  id_user:any;
+  id_entity:any = 0;
   description = '';
   name = '';
   price = '';
   listServices: any[] = [];
+  listEntities: any[] = [];
 
-  constructor(private _services: ServicesService) { }
+  constructor(private _services: ServicesService,private _entities: EntitiesService) { }
 
   ngOnInit(): void {
-    this.getAllServices();
+    this.id_user = localStorage.getItem('user_id');
+    this.getAllServices(this.id_entity);
+    this.getAllEntities(this.id_user);
   }
 
-  getAllServices(){
+  getAllServices(id_entity:any){
     this.loading = true;
 
-    this._services.getAllServices().subscribe((response)=>{
+    this._services.getAllServices(id_entity).subscribe((response)=>{
 
       this.listServices  = response.data;
 
@@ -43,6 +49,16 @@ export class ServicesComponent implements OnInit {
     }, error=>{
         this.loadData = false;
         this.loading = false;
+    })
+
+  }
+
+  getAllEntities(user_id: any){
+    this.loading = true;
+    this._entities.getAllEntities(user_id).subscribe((response)=>{
+      this.listEntities  = response.data;
+    }, error=>{
+      this.listEntities  = [];
     })
 
   }
@@ -63,6 +79,7 @@ export class ServicesComponent implements OnInit {
 
     this.loading = true;
     let datos = new FormData();
+    datos.append("id_entity",this.id_entity);
     datos.append("name",this.name);
     datos.append("description",this.description);
     datos.append("price",this.price);
@@ -77,7 +94,7 @@ export class ServicesComponent implements OnInit {
         timer: 2000
       });
       this.reset();
-      this.getAllServices();
+      this.getAllServices(this.id_entity);
       this.action = 'list';
     },error => {
       Swal.fire({
@@ -116,7 +133,7 @@ export class ServicesComponent implements OnInit {
         timer: 2000
       });
       this.reset();
-      this.getAllServices();
+      this.getAllServices(this.id_entity);
       this.action = 'list';
     },error => {
       Swal.fire({
@@ -153,7 +170,7 @@ export class ServicesComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this.getAllServices();
+        this.getAllServices(this.id_entity);
       },error => {
         Swal.fire({
           position: 'center',

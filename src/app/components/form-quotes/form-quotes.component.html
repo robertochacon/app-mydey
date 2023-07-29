@@ -1,0 +1,57 @@
+<div class="row justify-content-center without-borders bg-dark">
+
+    <div class="col-lg-10 col-md-10 col-sm-12">
+
+        <div class="container p-5" *ngIf="action==='register'">
+
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-5 col-sm-10">
+                    <img src="{{entity?.image || './assets/img/sin_foto.png'}}" class="shadow bg-white" alt="" width="100%" style="border-radius: 10px 10px;border: 5px solid #fd5237;">
+                </div>
+                <div class="col-12 pt-4 pb-2 text-center">
+                    <h1 class="text-white">{{entity?.name || 'Que esperas?'}}</h1>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <h1 style="color:#fd5237;">Haz tu cita.</h1>
+            </div>
+            <hr>
+            <h4 class="text-white">Será contactado/a por uno de nuestros representantes.</h4>
+            <div class="row justify-content-around allscreen bg-white rounded">
+
+                <div class="col-lg-5 col-md-5 col-sm-10 text-center d-none d-lg-flex d-md-flex">
+                    <img src="./assets/img/add_documents.svg" alt="" width="60%">
+                    <h2></h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 shadow text-start border-radio pt-3">
+                    <!-- <h5>Información general</h5> -->
+                    <label>Servicios</label>
+                    <select class="form-control shadow mb-3" [(ngModel)]="service">
+                        <option value="">Selecione un servicio</option>
+                        <option *ngFor="let service of listServices"  value="{{service.name}}">{{service.name}}</option>
+                    </select>
+                    <label>Nombre</label>
+                    <input type="text" [(ngModel)]="name" class="form-control shadow mb-3" maxLength="50" placeholder="Digite un nombre">
+                    <label>Teléfono</label>
+                    <input type="tel" [(ngModel)]="phone" class="form-control shadow mb-3" maxLength="50" placeholder="Digite un teléfono">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="email" class="form-control shadow mb-3" maxLength="50" placeholder="Digite un email">
+                    <label>Fecha de cita</label>
+                    <input type="date" [(ngModel)]="date" class="form-control shadow mb-3">
+                    <label>Nota</label>
+                    <textarea [(ngModel)]="note" class="form-control shadow mb-3" rows="3" placeholder="Digite una nota"></textarea>
+                    <button *ngIf="!loading" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        Enviar
+                    </button>
+                    <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Enviando...
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

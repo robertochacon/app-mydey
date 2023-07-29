@@ -1,10 +1,10 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'users'"></app-submenu>
 
-    <div class="col-lg-10 col-md-10 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-sm-12">
 
         <div class="container p-5 text-center" *ngIf="action==='list'">
 
@@ -169,7 +169,7 @@
             </div>
             <div class="row justify-content-around allscreen">
 
-                <div class="col-lg-5 col-md-5 col-sm-10 text-center">
+                <div class="col-lg-5 col-md-5 col-sm-10 text-center  d-none d-lg-block d-md-block">
                     <img src="./assets/img/add_documents.svg" alt="" width="60%">
                     <h2></h2>
                 </div>
@@ -206,10 +206,10 @@
 </div>
 
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="./assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->

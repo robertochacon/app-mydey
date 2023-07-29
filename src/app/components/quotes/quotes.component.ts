@@ -38,10 +38,9 @@ export class QuotesComponent implements OnInit {
 
   ngOnInit(): void {
     this.entity_id = this.route.snapshot.paramMap.get('id');
-    console.log(this.entity_id);
     
     this.getAllQuotes(this.entity_id);
-    this.getAllServices();
+    this.getAllServices(this.entity_id);
   }
 
   getAllQuotes(entity_id: any){
@@ -68,9 +67,9 @@ export class QuotesComponent implements OnInit {
 
   }
 
-  getAllServices(){
+  getAllServices(entity_id: any){
     this.loading = true;
-    this._services.getAllServices().subscribe((response)=>{
+    this._services.getAllServices(entity_id).subscribe((response)=>{
       this.listServices  = response.data;
     }, error=>{
       this.listServices  = [];

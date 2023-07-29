@@ -1,6 +1,6 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'users'"></app-submenu>
 
@@ -10,10 +10,10 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Administradores</a>
+                    <a class="nav-link active" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Administradores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="seller-tab" data-toggle="tab" href="#seller" role="tab" aria-controls="seller" aria-selected="false">Vendedores</a>
+                    <a class="nav-link" id="seller-tab" data-toggle="tab" href="#seller" role="tab" aria-controls="seller" aria-selected="false">Super administradores</a>
                 </li>
             </ul>
 
@@ -71,7 +71,7 @@
                     </div>
 
                     <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
-                        <table class="table table-hover responsive" id="listSeller" style="width:100%">
+                        <table class="table table-hover responsive" id="listSuperAdmin" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -83,7 +83,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of listSeller" class="text-start">
+                                <tr *ngFor="let user of listSuperAdmin" class="text-start">
                                     <td><i class="fa-solid fa-user mr-2 text-black"></i></td>
                                     <td>{{user.identification}}</td>
                                     <td>{{user.name}}</td>
@@ -105,15 +105,17 @@
         </div>
 
         <div class="container p-5" *ngIf="action==='register'">
-            <div class="row mt-2">
-                <h3>Registro de usuario</h3>
-                <div class="col-6 text-start">
+            <div class="row mt-2 d-flex align-items-center">
+                <div class="col-10 text-start">
+                    <h3>Registro de usuario</h3>
+                </div>
+                <div class="col-2 text-end">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
             </div>
             <div class="row justify-content-around allscreen">
 
-                <div class="col-lg-5 col-md-5 col-sm-10 text-center">
+                <div class="col-lg-5 col-md-5 col-sm-10 text-center d-none d-lg-block d-md-block">
                     <img src="./assets/img/add_documents.svg" alt="" width="60%">
                     <h2></h2>
                 </div>
@@ -149,10 +151,10 @@
 </div>
 
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="./assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->

@@ -7,11 +7,11 @@ import { environment } from 'src/environments/environment';
 export class HelperService {
 
   url = '';
-  enviroment = 'dev';
+  enviroment = 'prod';
 
   constructor() {
     if(this.enviroment == 'prod'){
-      this.url = 'https://services.laboratorioclinicorodriguez.com';
+      this.url = 'https://apimydey.racvycode.com';
     }else if(this.enviroment == 'dev'){
       this.url = 'http://127.0.0.1:8000';
     }

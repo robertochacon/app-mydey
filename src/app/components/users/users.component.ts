@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   allUsers: any[] = [];
   listDoctors: any[] = [];
   listAdmins: any[] = [];
-  listSeller: any[] = [];
+  listSuperAdmin: any[] = [];
   listEntities: any[] = [];
 
   constructor(private _users: UsersService) { }
@@ -39,12 +39,12 @@ export class UsersComponent implements OnInit {
 
       this.allUsers  = response.data;
       this.listAdmins = this.allUsers .filter(item => item.role === 'admin');
-      this.listSeller = this.allUsers .filter(item => item.role === 'seller');
+      this.listSuperAdmin = this.allUsers .filter(item => item.role === 'super_admin');
 
       setTimeout(function(){
         $('#listDoctors').DataTable();
         $('#listAdmins').DataTable();
-        $('#listSeller').DataTable();
+        $('#listSuperAdmin').DataTable();
       },100);
       this.loading = false;
       
@@ -57,7 +57,7 @@ export class UsersComponent implements OnInit {
 
   reloadDataTable(){
     setTimeout(function(){
-      $('#listSeller').DataTable();
+      $('#listSuperAdmin').DataTable();
     },100);
   }
 
