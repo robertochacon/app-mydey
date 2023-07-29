@@ -23,6 +23,11 @@ export class QuotesService {
     return this.http.post(url, json);
   }
 
+  updateQuotes(id: number, json: any): Observable<any>{
+    const url = this.url+'/'+id;
+    return this.http.put(url, json);
+  }
+
   deleteQuotes(id: number): Observable<any>{
     const url = this.url+'/'+id;
     return this.http.delete(url);

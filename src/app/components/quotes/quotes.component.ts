@@ -19,6 +19,7 @@ export class QuotesComponent implements OnInit {
   loadData = false;
   result = '';
   entity_id:any;
+  details:any;
   name = '';
   phone = '';
   ws = '';
@@ -28,6 +29,9 @@ export class QuotesComponent implements OnInit {
   service = '';
   note = '';
   listQuotes: any[] = [];
+  listQuotesProcess: any[] = [];
+  listQuotesActive: any[] = [];
+  listQuotesInactive: any[] = [];
   listServices: any[] = [];
 
   constructor(private route: ActivatedRoute, private _quotes: QuotesService, private _services: ServicesService) { }
@@ -46,9 +50,14 @@ export class QuotesComponent implements OnInit {
     this._quotes.getAllQuotes(entity_id).subscribe((response)=>{
 
       this.listQuotes  = response.data;
+      this.listQuotesProcess = this.listQuotes .filter(item => item.status === 'process');
+      this.listQuotesActive = this.listQuotes .filter(item => item.status === 'active');
+      this.listQuotesInactive = this.listQuotes .filter(item => item.status === 'inactive');
 
       setTimeout(function(){
-        $('#listQuotes').DataTable();
+        $('#listQuotesProcess').DataTable();
+        $('#listQuotesActive').DataTable();
+        $('#listQuotesInactive').DataTable();
       },100);
       this.loading = false;
       
@@ -91,6 +100,7 @@ export class QuotesComponent implements OnInit {
     this.loading = true;
     let datos = new FormData();
     datos.append("id_entity",this.entity_id);
+    datos.append("service",this.service);
     datos.append("name",this.name);
     datos.append("phone",this.phone);
     datos.append("email",this.email);
@@ -102,6 +112,37 @@ export class QuotesComponent implements OnInit {
         position: 'center',
         icon: 'success',
         title: 'Guardado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllQuotes(this.entity_id);
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  status(status:any): void {
+
+    this.loading = true;
+    let datos = {"status":status};
+
+    this._quotes.updateQuotes(this.details?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Completada correctamente!',
         showConfirmButton: false,
         timer: 2000
       });

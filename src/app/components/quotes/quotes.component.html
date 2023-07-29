@@ -8,47 +8,154 @@
 
         <div class="container p-5 text-center" *ngIf="action==='list'">
 
-            <div class="mt-2 d-flex justify-content-between align-items-center">
-                <div class="">
-                    <h3>Lista de citas</h3>
-                </div>
-                <div class="col-lg-0 text-start">
-                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar cita</span></p>
-                </div>
-            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="process-tab" data-toggle="tab" href="#process" role="tab" aria-controls="admins" aria-selected="false">En espera</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="seller" aria-selected="false">Confirmadas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="inactive-tab" data-toggle="tab" href="#inactive" role="tab" aria-controls="seller" aria-selected="false">Canceladas</a>
+                </li>
+            </ul>
 
-            <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
-                <table class="table table-hover responsive" id="listQuotes" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Servicio</th>
-                            <th>Fecha de reg.</th>
-                            <th>Estado</th>
-                            <th>Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let quote of listQuotes" class="text-start">
-                            <td>{{quote.name}}</td>
-                            <td>{{quote.phone || 'N/A'}}</td>
-                            <td>{{quote.email || 'N/A'}}</td>
-                            <td>{{quote.service || 'N/A'}}</td>
-                            <td>{{quote.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
-                            <td>
-                                <button *ngIf="quote.status=='process'" class="btn btn-info shadow text-white ml-1">En proceso</button>
-                                <button *ngIf="quote.status=='inactive'" class="btn btn-danger shadow text-white ml-1">Cancelada</button>
-                                <button *ngIf="quote.status=='active'" class="btn btn-success shadow text-white ml-1">Confirmada</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-success shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-hand-point-up"></i></button>
-                                <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="process" role="tabpanel" aria-labelledby="admins-tab">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Citas en espera ({{listQuotesProcess.length}})</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar cita</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listQuotesProcess" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let quote of listQuotesProcess" class="text-start">
+                                    <td>{{quote.name}}</td>
+                                    <td>{{quote.phone || 'N/A'}}</td>
+                                    <td>{{quote.email || 'N/A'}}</td>
+                                    <td>{{quote.service || 'N/A'}}</td>
+                                    <td>{{quote.date | date:'dd/MM/yyyy' || 'N/A'}}</td>
+                                    <td>
+                                        <button *ngIf="quote.status=='process'" class="btn btn-info shadow text-white ml-1">En proceso</button>
+                                        <button *ngIf="quote.status=='inactive'" class="btn btn-danger shadow text-white ml-1">Cancelada</button>
+                                        <button *ngIf="quote.status=='active'" class="btn btn-success shadow text-white ml-1">Confirmada</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success shadow ml-1" (click)="details=quote;status('active')"><i class="fa-solid fa-hand-point-up"></i></button>
+                                        <button class="btn btn-warning shadow ml-1" (click)="details=quote;status('inactive')"><i class="fa-solid fa-x"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade show" id="active" role="tabpanel" aria-labelledby="admins-tab">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Citas confirmadas ({{listQuotesActive.length}})</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar cita</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listQuotesActive" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let quote of listQuotesActive" class="text-start">
+                                    <td>{{quote.name}}</td>
+                                    <td>{{quote.phone || 'N/A'}}</td>
+                                    <td>{{quote.email || 'N/A'}}</td>
+                                    <td>{{quote.service || 'N/A'}}</td>
+                                    <td>{{quote.date | date:'dd/MM/yyyy' || 'N/A'}}</td>
+                                    <td>
+                                        <button *ngIf="quote.status=='process'" class="btn btn-info shadow text-white ml-1">En proceso</button>
+                                        <button *ngIf="quote.status=='inactive'" class="btn btn-danger shadow text-white ml-1">Cancelada</button>
+                                        <button *ngIf="quote.status=='active'" class="btn btn-success shadow text-white ml-1">Confirmada</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade show" id="inactive" role="tabpanel" aria-labelledby="admins-tab">
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Citas canceladas ({{listQuotesInactive.length}})</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar cita</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listQuotesInactive" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Email</th>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Estado</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let quote of listQuotesInactive" class="text-start">
+                                    <td>{{quote.name}}</td>
+                                    <td>{{quote.phone || 'N/A'}}</td>
+                                    <td>{{quote.email || 'N/A'}}</td>
+                                    <td>{{quote.service || 'N/A'}}</td>
+                                    <td>{{quote.date | date:'dd/MM/yyyy' || 'N/A'}}</td>
+                                    <td>
+                                        <button *ngIf="quote.status=='process'" class="btn btn-info shadow text-white ml-1">En proceso</button>
+                                        <button *ngIf="quote.status=='inactive'" class="btn btn-danger shadow text-white ml-1">Cancelada</button>
+                                        <button *ngIf="quote.status=='active'" class="btn btn-success shadow text-white ml-1">Confirmada</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
 
         </div>
