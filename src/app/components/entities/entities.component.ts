@@ -22,19 +22,20 @@ export class EntitiesComponent implements OnInit {
   name = '';
   phone = '';
   email = '';
+  image:any = [];
   listEntities: any[] = [];
 
   constructor(private _entities: EntitiesService) { }
 
   ngOnInit(): void {
-    this.getAllEntities();
     this.id_user = localStorage.getItem('user_id');
+    this.getAllEntities();
   }
 
   getAllEntities(){
     this.loading = true;
 
-    this._entities.getAllEntities().subscribe((response)=>{
+    this._entities.getAllEntities(this.id_user).subscribe((response)=>{
 
       this.listEntities  = response.data;
 
@@ -62,6 +63,12 @@ export class EntitiesComponent implements OnInit {
     this.phone = '';
     this.email = '';
   }
+
+  getImage(event: any){
+    this.image = event.target.files[0];
+    console.log(this.image);
+    
+  }
   
   save(): void {
 
@@ -72,6 +79,7 @@ export class EntitiesComponent implements OnInit {
     datos.append("description",this.description);
     datos.append("phone",this.phone);
     datos.append("email",this.email);
+    datos.append("image",this.image);
 
     this._entities.setEntities(datos).subscribe((response)=>{
       this.loading = false;
@@ -109,12 +117,15 @@ export class EntitiesComponent implements OnInit {
   update(): void {
 
     this.loading = true;
-    this.details.name = this.name;
-    this.details.description = this.description;
-    this.details.phone = this.phone;
-    this.details.email = this.email;
+    let datos = new FormData();
+    datos.append("id_user",this.id_user);
+    datos.append("name",this.name);
+    datos.append("description",this.description);
+    datos.append("phone",this.phone);
+    datos.append("email",this.email);
+    datos.append("image",this.image);
 
-    this._entities.updateEntities(this.details?.id, this.details).subscribe((response)=>{
+    this._entities.updateEntities(this.details?.id, datos).subscribe((response)=>{
       this.loading = false;
       Swal.fire({
         position: 'center',

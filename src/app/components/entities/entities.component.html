@@ -13,31 +13,42 @@
                     <h3>Mis entidades</h3>
                 </div>
                 <div class="col-lg-0 text-start">
-                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar entidad</span></p>
+                    <p class="btn btn-primary mt-1" (click)="action='register';details=null"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar entidad</span></p>
                 </div>
             </div>
 
             <div *ngIf="!loading" class="">
 
                 <div class="row justify-content-center">
-                    <div class="col-12 shadow mt-2 mb-2 p-2" *ngFor="let entity of listEntities">
+                    <div class="col-12 shadow mt-2 mb-2 p-2 border" *ngFor="let entity of listEntities">
                         <div class="row justify-content-center">
                             <div class="col-lg-2 col-md-2 col-sm-12 text-center d-flex align-items-center">
                                 <img src="./assets/img/business_building.png" alt="" style="max-width: 150px;" width="100%">
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-12 p-2 text-start">
-                                <div><b>Nombre:</b> {{entity.name || 'N/A'}}</div>
-                                <hr>
-                                <div><b>Descripcion:</b> {{entity.description || 'N/A'}}</div>
-                                <hr>
-                                <div><b>Telefono:</b> {{entity.phone || 'N/A'}}</div>
-                                <hr>
-                                <div><b>Fecha:</b> {{entity.created_at | date:'dd/MM/yyyy'}}</div>
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8 col-md-6 col-sm-12 d-flex align-items-center">
+                                        <div class="col-12">
+                                            <div><b>Nombre:</b> {{entity.name || 'N/A'}}</div>
+                                            <hr>
+                                            <div><b>Descripcion:</b> {{entity.description || 'N/A'}}</div>
+                                            <hr>
+                                            <div><b>Telefono:</b> {{entity.phone || 'N/A'}}</div>
+                                            <hr>
+                                            <div><b>Fecha:</b> {{entity.created_at | date:'dd/MM/yyyy'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12 text-center d-flex align-items-center">
+                                        <qrcode [qrdata]="'Your data string'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+                                    </div>
+                                </div>
+
                                 <button routerLink="/quotes/{{entity.id}}" class="btn btn-lg btn-block text-white shadow mt-2 mb-2" style="background-color: #fd5237;"><b>Ver citas</b></button>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-12 d-flex align-items-center">
                                 <div>
-                                    <button class="btn btn-info shadow mt-2" (click)="details=entity;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button class="btn btn-warning shadow mt-2" (click)="details=entity" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
+                                    <button class="btn btn-info shadow ml-1 mt-2" (click)="details=entity;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
                                     <button class="btn btn-danger shadow ml-1 mt-2" (click)="delete(entity.id)"><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
@@ -76,6 +87,8 @@
                     <input type="text" [(ngModel)]="description" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un descripcion">
                     <input type="tel" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
                     <input type="email" [(ngModel)]="email" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un email">
+                    <input (change)="getImage($event)" accept="image/*" type="file" class="form-control shadow mt-3">
+
                     <button *ngIf="!loading && details == null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>
@@ -94,6 +107,26 @@
     </div>
 </div>
 
+
+<!-- Modal of details -->
+<div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-dark" id="exampleModalLabel"><b>Logo</b></h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+
+                <img src="{{details?.image || './assets/img/sin_foto.png'}}" alt="" width="100%">
+
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>

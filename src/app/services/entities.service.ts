@@ -13,8 +13,8 @@ export class EntitiesService {
     this.url =  helper.getUrl('entities');
   }
 
-  getAllEntities(): Observable<any>{
-    const url = this.url;
+  getAllEntities(id_user:any): Observable<any>{
+    const url = this.url+'/all/'+id_user;
     return this.http.get(url);
   }
 
@@ -25,7 +25,7 @@ export class EntitiesService {
 
   updateEntities(id: number, json: any): Observable<any>{
     const url = this.url+'/'+id;
-    return this.http.put(url, json);
+    return this.http.post(url, json);
   }
 
   deleteEntities(id: number): Observable<any>{

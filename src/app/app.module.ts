@@ -16,6 +16,7 @@ import { ModalPasswordComponent } from './components/modal-password/modal-passwo
 import { ServicesComponent } from './components/services/services.component';
 import { QuotesComponent } from './components/quotes/quotes.component';
 import { EntitiesComponent } from './components/entities/entities.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { EntitiesComponent } from './components/entities/entities.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
