@@ -1,0 +1,43 @@
+<div class="menu shadow">
+    <a routerLink="/" style="text-decoration: none;cursor: pointer;" class="p-2 text-center mr-5">
+        <img src="./assets/img/logo.png" class="mt-1 mb-1" width="150px" alt="">
+    </a>
+
+    <a routerLink="/dashboard" style="text-decoration: none;cursor: pointer;" class="p-2 text-center" *ngIf="role==='admin'">
+        <img src="./assets/img/home.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Inicio</h5>
+    </a>
+
+    <a routerLink="/entities" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/business_building.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Entidades</h5>
+    </a>
+
+    <a routerLink="/services" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/services.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Servicios</h5>
+    </a>
+
+    <!-- <a routerLink="/quotes/1" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/calendar.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Citas</h5>
+    </a> -->
+
+    <a routerLink="/users" style="text-decoration: none;cursor: pointer;" class="p-2 text-center" *ngIf="role==='admin'">
+        <img src="./assets/img/users.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Usuarios</h5>
+    </a>
+
+    <a style="text-decoration:none;cursor: pointer;" class="p-2 text-center" data-bs-toggle="modal" data-bs-target="#changePassword">
+        <img src="./assets/img/settings.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Configuracion</h5>
+    </a>
+
+    <a (click)="salir()" style="text-decoration: none;cursor: pointer;" class="p-2 text-center ml-5">
+        <img src="./assets/img/off.png" class="mt-1 mb-1" width="60px" alt=""><br>
+        <h5 class="text-dark">Salir</h5>
+    </a>
+
+</div>
+
+<app-modal-password></app-modal-password>

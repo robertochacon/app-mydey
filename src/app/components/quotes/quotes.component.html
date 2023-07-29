@@ -1,0 +1,108 @@
+<!-- <app-navbarinto></app-navbarinto> -->
+
+<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+
+    <app-submenu [page]="'users'"></app-submenu>
+
+    <div class="col-lg-10 col-md-10 col-sm-12">
+
+        <div class="container p-5 text-center" *ngIf="action==='list'">
+
+            <div class="mt-2 d-flex justify-content-between align-items-center">
+                <div class="">
+                    <h3>Lista de citas</h3>
+                </div>
+                <div class="col-lg-0 text-start">
+                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar cita</span></p>
+                </div>
+            </div>
+
+            <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                <table class="table table-hover responsive" id="listQuotes" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Servicio</th>
+                            <th>Fecha de reg.</th>
+                            <th>Estado</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let quote of listQuotes" class="text-start">
+                            <td>{{quote.name}}</td>
+                            <td>{{quote.phone || 'N/A'}}</td>
+                            <td>{{quote.email || 'N/A'}}</td>
+                            <td>{{quote.service || 'N/A'}}</td>
+                            <td>{{quote.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
+                            <td>
+                                <button *ngIf="quote.status=='process'" class="btn btn-info shadow text-white ml-1">En proceso</button>
+                                <button *ngIf="quote.status=='inactive'" class="btn btn-danger shadow text-white ml-1">Cancelada</button>
+                                <button *ngIf="quote.status=='active'" class="btn btn-success shadow text-white ml-1">Confirmada</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-success shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-hand-point-up"></i></button>
+                                <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="container p-5" *ngIf="action==='register'">
+            <div class="row mt-2">
+                <h3>Registro de cita</h3>
+                <div class="col-6 text-start">
+                    <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
+                </div>
+            </div>
+            <div class="row justify-content-around allscreen">
+
+                <div class="col-lg-5 col-md-5 col-sm-10 text-center">
+                    <img src="./assets/img/add_documents.svg" alt="" width="60%">
+                    <h2></h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 shadow text-center border-radio pt-3">
+                    <div class="alert alert-success" role="alert" *ngIf="result === 'ok'">
+                        Registro completado.
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="result === 'fail'">
+                        No se pudo completar su registro.
+                    </div>
+                    <h5>Información general</h5>
+                    <select class="form-control shadow mt-3" [(ngModel)]="service">
+                        <option value="">Selecione un servicio</option>
+                        <option *ngFor="let service of listServices"  value="{{service.name}}">{{service.name}}</option>
+                    </select>
+                    <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
+                    <input type="tel" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <input type="email" [(ngModel)]="email" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un email">
+                    <input type="date" [(ngModel)]="date" class="form-control shadow mt-3">
+                    <button *ngIf="!loading" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        Registrar
+                    </button>
+                    <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Registrando...
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+    <div>
+        <img class="mb-3" src="./assets/img/devices.svg" width="80%" alt="">
+        <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
+        <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
+    </div>
+</div>
