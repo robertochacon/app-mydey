@@ -6,7 +6,7 @@
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container p-4 text-center" *ngIf="action==='list'">
 
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="">
@@ -30,7 +30,7 @@
                                             <hr>
                                             <div><b>Descripcion:</b> {{entity.description || 'N/A'}}</div>
                                             <hr>
-                                            <div><b>Telefono:</b> {{entity.phone || 'N/A'}}</div>
+                                            <div><b>Telefono:</b> {{entity.phone | mask: '(000) 000-0000' || 'N/A'}}</div>
                                             <hr>
                                             <div><b>Fecha:</b> {{entity.created_at | date:'dd/MM/yyyy'}}</div>
                                         </div>
@@ -56,9 +56,13 @@
 
             </div>
 
+            <div *ngIf="loading" class="spinner-border text-secondary mt-5" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container p-4" *ngIf="action==='register'">
             <div class="row mt-2 d-flex align-items-center">
                 <div class="col-10 text-start">
                     <h3 *ngIf="details == null">Registro de entidad</h3>
@@ -85,7 +89,7 @@
                     <h5>Información general</h5>
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
                     <input type="text" [(ngModel)]="description" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un descripcion">
-                    <input type="tel" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <input type="text" [(ngModel)]="phone" mask="(000) 000-0000" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
                     <input type="email" [(ngModel)]="email" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un email">
                     <input (change)="getImage($event)" accept="image/*" type="file" class="form-control shadow mt-3">
 

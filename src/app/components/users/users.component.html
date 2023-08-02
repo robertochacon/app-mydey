@@ -6,7 +6,7 @@
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container pl-1 pr-1 pt-4 pb-1 text-center" *ngIf="action==='list'">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -58,6 +58,10 @@
                         </table>
                     </div>
 
+                    <div *ngIf="loading" class="spinner-border text-secondary mt-5" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="seller" role="tabpanel" aria-labelledby="seller-tab">
 
@@ -104,7 +108,7 @@
 
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container pl-1 pr-1 pt-4 pb-1" *ngIf="action==='register'">
             <div class="row mt-2 d-flex align-items-center">
                 <div class="col-10 text-start">
                     <h3>Registro de usuario</h3>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,10 @@ import { QuotesComponent } from './components/quotes/quotes.component';
 import { EntitiesComponent } from './components/entities/entities.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { FormQuotesComponent } from './components/form-quotes/form-quotes.component';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -40,7 +45,8 @@ import { FormQuotesComponent } from './components/form-quotes/form-quotes.compon
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    QRCodeModule
+    QRCodeModule,
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [],
   bootstrap: [AppComponent]
